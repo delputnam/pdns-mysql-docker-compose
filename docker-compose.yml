@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  database:
+    image: mariadb/server
+    restart: always
+    container_name: db
+    ports:
+      - "3306:3306"
+    env_file:
+      - env/database.env
+
+  powerdns:
+    build: ./powerdns
+    image: powerdns:latest
+    container_name: powerdns
+    links:
+      - database:db
+    ports:
+      - "54:53/tcp"
+      - "54:53/udp"
+      - "8888:8081"
+    entrypoint: /start.sh
+    env_file:
+      - env/database.env
