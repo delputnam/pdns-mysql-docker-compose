@@ -4,15 +4,15 @@
 sleep 5
 
 # Import schema structure
-# if [ -e "pdns.sql" ]; then
-# 	mysql --host=database --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=$MYSQL_DATABASE < pdns.sql
-# 	rm -f pdns.sql
+if [ -e "pdns.sql" ]; then
+	mysql --host=database --user=$MYSQL_USER --password=$MYSQL_PASSWORD --database=$MYSQL_DATABASE < pdns.sql
+	# rm -f pdns.sql
 
-# 	mysql --host=database --user=root --password=$MYSQL_ROOT_PASSWORD -e "create database ${MYSQL_DATABASE_PDNSADMIN};"
-# 	echo "Imported schema structured"
-# else
-#     echo "Couldn't find pdns.sql"
-# fi
+ 	mysql --host=database --user=root --password=$MYSQL_ROOT_PASSWORD -e "create database if not exists ${MYSQL_DATABASE_PDNSADMIN};"
+	echo "Imported schema structured"
+else
+     echo "Couldn't find pdns.sql"
+fi
 
 # Remove all powerdns config and run it as foreground
 rm -rf /etc/powerdns/pdns.d/*
