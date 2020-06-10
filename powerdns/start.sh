@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Give time to database to boot up and embedded DNS server ready
-sleep 5
+# Use `wait` to give time to database to boot up, and get the embedded DNS server ready
+/wait || exit 1
 
 # Import schema structure
 if [ -e "pdns.sql" ]; then

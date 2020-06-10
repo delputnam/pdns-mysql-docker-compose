@@ -17,4 +17,9 @@ ADD ./pdns.sql /
 ADD ./start.sh /
 RUN chmod +x /start.sh
 
+# Add docker-compose-wait tool i.e. https://github.com/ufoscout/docker-compose-wait
+ENV WAIT_VERSION 2.7.3
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
+RUN chmod +x /wait
+
 ENTRYPOINT ["/start.sh"]

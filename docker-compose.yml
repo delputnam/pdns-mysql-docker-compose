@@ -25,3 +25,6 @@ services:
     entrypoint: /start.sh
     env_file:
       - env/database.env
+    environment:
+      WAIT_HOSTS: database:3306
+      WAIT_SLEEP_INTERVAL: 5
