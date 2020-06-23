@@ -14,6 +14,8 @@ services:
     build: ./powerdns
     image: powerdns:latest
     container_name: powerdns
+    depends_on:
+      - database
     links:
       - database:db
     ports:
@@ -23,3 +25,6 @@ services:
     entrypoint: /start.sh
     env_file:
       - env/database.env
+    environment:
+      WAIT_HOSTS: database:3306
+      WAIT_SLEEP_INTERVAL: 5
